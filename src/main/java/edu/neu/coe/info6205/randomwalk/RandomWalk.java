@@ -4,7 +4,9 @@
 
 package edu.neu.coe.info6205.randomwalk;
 
+import java.io.*;
 import java.util.Random;
+
 
 public class RandomWalk {
 
@@ -20,6 +22,8 @@ public class RandomWalk {
      * @param dy the distance he moves in the y direction
      */
     private void move(int dx, int dy) {
+        x= x+dx;
+        y = y+dy;
         // TO BE IMPLEMENTED
     }
 
@@ -29,7 +33,14 @@ public class RandomWalk {
      * @param m the number of steps the drunkard takes
      */
     private void randomWalk(int m) {
-        // TO BE IMPLEMENTED
+        for (int i=0;i<m;i++) {
+
+            randomMove();
+
+        }
+
+
+
     }
 
     /**
@@ -48,8 +59,9 @@ public class RandomWalk {
      * @return the (Euclidean) distance from the origin to the current position.
      */
     public double distance() {
-        // TO BE IMPLEMENTED
-        return 0;
+        //Euclidean distance
+        return Math.sqrt(x*x + y*y);
+
     }
 
     /**
@@ -70,13 +82,25 @@ public class RandomWalk {
     }
 
     public static void main(String[] args) {
-        if (args.length == 0)
-            throw new RuntimeException("Syntax: RandomWalk steps [experiments]");
-        int m = Integer.parseInt(args[0]);
-        int n = 30;
-        if (args.length > 1) n = Integer.parseInt(args[1]);
-        double meanDistance = randomWalkMulti(m, n);
-        System.out.println(m + " steps: " + meanDistance + " over " + n + " experiments");
-    }
 
+
+
+
+
+            if (args.length == 0)
+                throw new RuntimeException("Syntax: RandomWalk steps [experiments]");
+            int m = Integer.parseInt(args[0]);
+            int n = 5000;
+            if (args.length > 1) n = Integer.parseInt(args[1]);
+            //make it process repeatedly so we can get the full data with one run
+            for (int i = 1; i <= m; i++) {
+                double meanDistance = randomWalkMulti(i, n);
+                //System.out.println(i + " steps: " + meanDistance + " over " + n + " experiments");
+                System.out.println(i + "," + meanDistance);
+                //change the output form in order to put data into excel easier
+
+            }
+
+
+    }
 }
